@@ -15,7 +15,9 @@ by MoDu
 #define outputA 10
 #define outputB 11
 FastX9CXXX Potentiometer;
+
 Servo myservo;
+boolean blink_=false;
  int counter = 0; 
  int aState;
  int aLastState;
@@ -63,7 +65,7 @@ void loop() {
      Potentiometer.JumpToStep(counter_mapped);
 
      if(counter_mapped >=75){
-      heartBeat(1.0);
+      blink_=true;
       // goes from 0 degrees to 180 degrees
     // in steps of 1 degree
     myservo.write(14);              // tell servo to go to position in variable 'pos'
@@ -72,6 +74,7 @@ void loop() {
 
   }
   if(counter_mapped < 75){
+    blink_=false;
        // in steps of 1 degree
     myservo.write(0);              // tell servo to go to position in variable 'pos'
     delay(15);
@@ -79,6 +82,7 @@ void loop() {
   }
    } 
    aLastState = aState;
+   heartBeat(1.0);
 	//Potentiometer.JumpToStep(random(100));
 	//Serial.print(F("Potentiometer current step: "));
 	//Serial.print(Potentiometer.GetStep(), DEC);
@@ -87,6 +91,7 @@ void loop() {
 }
 
 void heartBeat(float tempo){
+  if(blink_==true){
     if ((millis() - prevMillis) > (long)(heartBeatArray[hbeatIndex] * tempo)){
         hbeatIndex++;
         if (hbeatIndex > 3) hbeatIndex = 0;
@@ -101,4 +106,5 @@ void heartBeat(float tempo){
         prevMillis = millis();
 
     }
+  }
 }
