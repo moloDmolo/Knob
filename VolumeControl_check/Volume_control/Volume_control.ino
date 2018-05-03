@@ -60,23 +60,42 @@ void loop() {
        
      }
      Serial.print("Position: ");
-     counter_mapped = (float) (map(counter, -100,100, -256, 256));
-     Serial.println(counter_mapped);
-     Potentiometer.JumpToStep(counter_mapped);
+     Serial.println(counter);
+    Serial.println(counter_mapped);
+   
 
-     if(counter_mapped >=75){
+     if(counter_mapped >=56){
       blink_=true;
       // goes from 0 degrees to 180 degrees
     // in steps of 1 degree
-    myservo.write(14);              // tell servo to go to position in variable 'pos'
-    
+      // tell servo to go to position in variable 'pos'
+     Potentiometer.JumpToStep(counter_mapped-10);
     delay(15);                       // waits 15ms for the servo to reach the position
 
   }
-  if(counter_mapped < 75){
+  if(counter_mapped >=77){
+      blink_=true;
+      // goes from 0 degrees to 180 degrees
+    // in steps of 1 degree
+      // tell servo to go to position in variable 'pos'
+     Potentiometer.JumpToStep(counter_mapped-20);
+    delay(15);                       // waits 15ms for the servo to reach the position
+
+  }
+  if(counter_mapped >=108){
+      blink_=true;
+      // goes from 0 degrees to 180 degrees
+    // in steps of 1 degree
+      // tell servo to go to position in variable 'pos'
+     Potentiometer.JumpToStep(counter_mapped-30);
+    delay(15);                       // waits 15ms for the servo to reach the position
+
+  }
+  if(counter_mapped < 45){
     blink_=false;
        // in steps of 1 degree
-    myservo.write(0);              // tell servo to go to position in variable 'pos'
+    Potentiometer.JumpToStep(counter_mapped);
+       // tell servo to go to position in variable 'pos'
     delay(15);
   
   }
